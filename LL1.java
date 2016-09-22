@@ -200,6 +200,7 @@ public class LL1 {
 		return true;
 	}
 	
+	/* This is a custom tokenizer */
 	private static ArrayList<String> tokenize(String line){
 		ArrayList<String> toReturn = new ArrayList<String>();
 		String numberHold = "";
