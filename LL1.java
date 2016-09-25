@@ -15,6 +15,7 @@ public class LL1 {
 	
 	public static void main(String[] args) {
 		String line = args[0];
+		System.out.println("Input string is: " + line);
 		//Tokenize the String
 		ArrayList<String> tokens = tokenize(line);
 		
