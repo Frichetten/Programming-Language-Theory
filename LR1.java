@@ -1,3 +1,9 @@
+/**
+ * The following program was written entirely by Nick Frichette of 
+ * Illinois State University under the direction of Dr. Li. No 
+ * plagiarism was used to produce this work.
+ */
+
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.StringTokenizer;
@@ -14,6 +20,8 @@ public class LR1 {
 	public static void main(String[] args) {
 		//Getting Command Line Arguments
 		String line = args[0];
+		if (!line.contains("$"))
+			line = line + "$";
 		input = line;
 		System.out.println("Input: " + line);
 		
@@ -28,8 +36,7 @@ public class LR1 {
 		//Push State 0 into states, and off we go
 		states.add("0");
 		token = tokener.nextToken();
-		state0();
-		
+		state0();	
 	}
 	
 	public static void print(){
@@ -48,7 +55,7 @@ public class LR1 {
 		}
 		String line = "";
 		while(temp.hasMoreTokens())
-			line = line + temp.nextToken();
+			line = line + " " + temp.nextToken();
 		System.out.println("     " + token+line);
 	}
 	
@@ -127,7 +134,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 0: id");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 0: id");
 			state5();
 		}
 		//( -- shift 4
@@ -139,7 +146,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 0: (");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 0: (");
 			state4();
 		}
 		else {
@@ -158,7 +165,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 1: +");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 1: +");
 			state6();
 		}
 		//- --> shift 6
@@ -170,12 +177,12 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 1: -");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 1: -");
 			state6();
 		}
 		//$ -- accept
 		else if (token.equals("$")){
-			System.out.println("--> Valid Expression = " + hold.get(0) + ".");
+			System.out.println("-- > Valid Expression = " + hold.get(0) + ".");
 		}
 		else {
 			System.out.println("FATAL ERROR IN STATE 1- TERMINATING");
@@ -194,7 +201,7 @@ public class LR1 {
 			//Need to grab a new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"E"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 2: +");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 2: +");
 			goTo(states.get(states.size()-1));
 		}
 		//- -- E -> T
@@ -207,7 +214,7 @@ public class LR1 {
 			//Need to grab a new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"E"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 2: -");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 2: -");
 			goTo(states.get(states.size()-1));
 		}
 		//* -- shift 7
@@ -219,7 +226,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 2: *");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 2: *");
 			state7();
 		}
 		/// -- shift 7
@@ -231,7 +238,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 2: /");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 2: /");
 			state7();
 		}
 		//) -- E -> T
@@ -244,7 +251,7 @@ public class LR1 {
 			//Need to grab a new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"E"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 2: )");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 2: )");
 			goTo(states.get(states.size()-1));
 		}
 		//$ -- E -> T
@@ -257,7 +264,7 @@ public class LR1 {
 			//Need to grab a new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"E"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 2: $");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 2: $");
 			goTo(states.get(states.size()-1));
 		}
 		else {
@@ -278,7 +285,7 @@ public class LR1 {
 			//Need to grab a new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 3: +");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 3: +");
 			goTo(states.get(states.size()-1));
 		}
 		//- -- T -> F
@@ -291,7 +298,7 @@ public class LR1 {
 			//Need to grab a new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 3: -");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 3: -");
 			goTo(states.get(states.size()-1));
 		}
 		//* -- T -> F
@@ -304,7 +311,7 @@ public class LR1 {
 			//Need to grab a new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 3: *");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 3: *");
 			goTo(states.get(states.size()-1));
 		}
 		/// -- T -> F
@@ -317,7 +324,7 @@ public class LR1 {
 			//Need to grab a new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 3: /");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 3: /");
 			goTo(states.get(states.size()-1));
 		}
 		//) -- T -> F
@@ -330,7 +337,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 3: )");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 3: )");
 			goTo(states.get(states.size()-1));
 		}
 		//$ -- T -> F
@@ -343,7 +350,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 3: $");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 3: $");
 			goTo(states.get(states.size()-1));
 		}
 		else {
@@ -362,7 +369,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 4: id");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 4: id");
 			state5();
 		}
 		//( -- shift 4
@@ -374,7 +381,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 4: (");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 4: (");
 			state4();
 		}
 		else {
@@ -395,7 +402,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 5: +");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 5: +");
 			goTo(states.get(states.size()-1));
 		}
 		//- -- F -> id
@@ -408,7 +415,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 5: -");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 5: -");
 			goTo(states.get(states.size()-1));
 		}
 		//* -- F -> id
@@ -421,7 +428,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 5: *");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 5: *");
 			goTo(states.get(states.size()-1));
 		}
 		/// -- F -> id
@@ -434,7 +441,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 5: /");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 5: /");
 			goTo(states.get(states.size()-1));
 		}
 		//) -- F -> id
@@ -447,7 +454,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 5: )");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 5: )");
 			goTo(states.get(states.size()-1));
 		}
 		//$ -- F -> id
@@ -460,7 +467,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 5: id");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 5: id");
 			goTo(states.get(states.size()-1));
 		}
 		else {
@@ -479,7 +486,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 6: id");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 6: id");
 			state5();
 		}
 		//( -- shift 4
@@ -491,7 +498,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 6: (");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 6: (");
 			state4();
 		}
 		else {
@@ -510,7 +517,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 7: id");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 7: id");
 			state5();
 		}
 		//( -- shift 4
@@ -522,7 +529,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 7: (");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 7: (");
 			state4();
 		}
 		else {
@@ -541,7 +548,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 8: +");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 8: +");
 			state6();
 		}
 		//- -- shift 6
@@ -553,7 +560,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 8: -");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 8: -");
 			state6();
 		}
 		//) -- shift 11
@@ -565,7 +572,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 8: )");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 8: )");
 			state11();
 		}
 		else {
@@ -585,8 +592,8 @@ public class LR1 {
 			states.remove(states.size()-1);
 			states.remove(states.size()-1);
 			//Perform Arithmetic
-			int b = Integer.valueOf(hold.remove(hold.size()-1));
 			int a = Integer.valueOf(hold.remove(hold.size()-1));
+			int b = Integer.valueOf(hold.remove(hold.size()-1));
 			int c = 0;
 			if (operator.equals("+"))
 				c = a + b;
@@ -598,7 +605,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"E"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 9: +");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 9: +");
 			goTo(states.get(states.size()-1));
 		}
 		//- -- E -> E + T
@@ -624,7 +631,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"E"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 9: +");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 9: +");
 			goTo(states.get(states.size()-1));
 		}
 		//* -- shift 7
@@ -636,7 +643,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 9: *");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 9: *");
 			state7();
 		}
 		/// -- shift 7
@@ -648,7 +655,7 @@ public class LR1 {
 			//Grab new token
 			token = tokener.nextToken();
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 9: /");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 9: /");
 			state7();
 		}
 		//) -- E -> E + T
@@ -674,7 +681,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"E"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 9: )");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 9: )");
 			goTo(states.get(states.size()-1));
 		}
 		//$ -- E -> E + T
@@ -700,7 +707,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"E"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 9: $");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 9: $");
 			goTo(states.get(states.size()-1));
 		}
 		else {
@@ -733,7 +740,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 10: +");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 10: +");
 			goTo(states.get(states.size()-1));
 		}
 		//- -- T -> T * F
@@ -759,7 +766,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 10: +");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 10: +");
 			goTo(states.get(states.size()-1));
 		}
 		//* -- T -> T * F
@@ -785,7 +792,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 10: *");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 10: *");
 			goTo(states.get(states.size()-1));
 		}
 		/// -- T -> T * F
@@ -811,7 +818,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 10: *");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 10: *");
 			goTo(states.get(states.size()-1));
 		}
 		//) -- T -> T * F
@@ -837,7 +844,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 10: )");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 10: )");
 			goTo(states.get(states.size()-1));
 		}
 		//$ -- T -> T * F
@@ -863,7 +870,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"T"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 10: $");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 10: $");
 			goTo(states.get(states.size()-1));
 		}
 		else {
@@ -887,7 +894,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 11: +");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 11: +");
 			goTo(states.get(states.size()-1));
 		}
 		//- -- F -> ( E )
@@ -904,7 +911,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 11: +");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 11: +");
 			goTo(states.get(states.size()-1));
 		}
 		//* -- F -> ( E )
@@ -921,7 +928,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 11: *");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 11: *");
 			goTo(states.get(states.size()-1));
 		}
 		/// -- F -> ( E )
@@ -938,7 +945,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 11: *");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 11: *");
 			goTo(states.get(states.size()-1));
 		}
 		//) -- F -> ( E )
@@ -955,7 +962,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 11: )");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 11: )");
 			goTo(states.get(states.size()-1));
 		}
 		//$ -- F -> ( E )
@@ -972,7 +979,7 @@ public class LR1 {
 			//Need to grab new state based on the previous one
 			states.add(lookup(states.get(states.size()-1),"F"));
 			print();
-			System.out.println(states.toString() + " " + symbols.toString() + " State 11: $");
+			//System.out.println(states.toString() + " " + symbols.toString() + " State 11: $");
 			goTo(states.get(states.size()-1));
 		}
 		else {
